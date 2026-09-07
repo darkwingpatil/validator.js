@@ -396,6 +396,16 @@ describe('Validators', () => {
         'user@dom\u200Dain.com',
         'admin\uFEFF@site.com',
         'admin@si\uFEFFte.com',
+        // U+00AD SOFT HYPHEN
+        'foo\u00AD@bar.com',
+        // U+2060 WORD JOINER
+        'foo@bar\u2060.com',
+        // U+034F COMBINING GRAPHEME JOINER (category Mn, not Cf)
+        'foo\u034F@bar.com',
+        // U+061C ARABIC LETTER MARK
+        'foo@bar\u061C.com',
+        // U+202A LEFT-TO-RIGHT EMBEDDING (bidi control)
+        'foo\u202A@bar.com',
       ],
     });
   });
@@ -411,6 +421,9 @@ describe('Validators', () => {
         'test\u200C@example.com',
         'user\u200D@domain.com',
         'admin\uFEFF@site.com',
+        'foo\u00AD@bar.com',
+        'foo@bar\u2060.com',
+        'foo\u034F@bar.com',
       ],
       invalid: [
         'invalidemail@',

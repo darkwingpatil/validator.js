@@ -27,7 +27,10 @@ const gmailUserPart = /^[a-z\d]+$/;
 const quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 const emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 const quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
-const zeroWidthChars = /[\u200B-\u200D\uFEFF]/;
+// Unicode "Format" category (Cf) covers zero-width and bidi-control characters
+// (ZWSP, ZWNJ, ZWJ, BOM, word joiner, bidi overrides, etc). U+034F (combining
+// grapheme joiner) is category Mn, not Cf, so it is listed explicitly.
+const zeroWidthChars = /[\u034F\p{Cf}]/u;
 const defaultMaxEmailLength = 254;
 /* eslint-enable max-len */
 /* eslint-enable no-control-regex */
